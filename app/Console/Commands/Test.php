@@ -2,7 +2,8 @@
 
 namespace App\Console\Commands;
 
-use App\Jobs\ProcessPodcast;
+use App\Jobs\PollingOrderStatusJob;
+use App\Models\Order;
 use Illuminate\Console\Command;
 
 class Test extends Command
@@ -26,14 +27,8 @@ class Test extends Command
      */
     public function handle()
     {
-        $this->info('Test command');
-        ProcessPodcast::dispatch(
-            "freddy"
-        );
-        $this->info('Time: ' . now());
-//        sleep(3);
-//        ProcessPodcast::dispatch(1);
-//        ProcessPodcast::dispatch(2);
-//        ProcessPodcast::dispatch(2);
+        $this->info('测试订单轮询任务-入队列');
+        $order = Order::first();
+        PollingOrderStatusJob::dispatch($order);
     }
 }
