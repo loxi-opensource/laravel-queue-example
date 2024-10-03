@@ -29,7 +29,7 @@ php artisan db:seed
 # 先开始队列监听worker
 php artisan queue:work --sleep=1
 
-# 入队列
+# 开一个新的终端窗口，执行测试命令，这个命令会发送一条消息到队列
 php artisan app:test
 ```
 
