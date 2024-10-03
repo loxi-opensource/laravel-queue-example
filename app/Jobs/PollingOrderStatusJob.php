@@ -36,7 +36,7 @@ class PollingOrderStatusJob extends BasePollingJob
                 return;
             }
 
-            // 开始请求通道同步订单状态
+            // 开始同步订单状态
             $result = $this->orderQuery($order);
             if (!$result || $result !== BasePollingJob::NEXT_STATE_CONTINUE) {
                 $this->delete();

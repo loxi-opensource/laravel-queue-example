@@ -29,13 +29,13 @@ abstract class BasePollingJob implements ShouldQueue, ShouldBeUnique
     {
         $attempts = $this->job->attempts();
         if ($attempts <= 5) {
-            $this->release(1); // 前10秒 每隔1秒执行一次
+            $this->release(1); // 前5秒 每隔1秒执行一次
         } elseif ($attempts <= 10) {
-            $this->release(5); // 接下来30秒 每隔3秒一次
+            $this->release(5); // 接下来25秒 每隔5秒一次
         } elseif ($attempts <= 20) {
-            $this->release(10); // 接下来50秒 每5秒一次
+            $this->release(10); // 接下来100秒 每10秒一次
         } else {
-            $this->release(30); // 最后变成10秒一次
+            $this->release(30); // 最后变成30秒一次
         }
     }
 
