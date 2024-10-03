@@ -17,11 +17,6 @@ class PollingOrderStatusJob extends BasePollingJob
         return $this->order->trade_no;
     }
 
-    public function retryUntil()
-    {
-        return now()->addSeconds(10);
-    }
-
     public function __construct(Order $order)
     {
         $this->order = $order;
