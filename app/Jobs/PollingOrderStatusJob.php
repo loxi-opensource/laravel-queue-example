@@ -4,7 +4,6 @@ namespace App\Jobs;
 
 use App\Enums\OrderStatus;
 use App\Models\Order;
-use Illuminate\Foundation\Queue\Queueable;
 use Illuminate\Support\Facades\Log;
 
 class PollingOrderStatusJob extends BasePollingJob
