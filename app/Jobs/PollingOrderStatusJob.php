@@ -37,8 +37,8 @@ class PollingOrderStatusJob extends BasePollingJob
             }
 
             // 开始同步订单状态
-            $result = $this->orderQuery($order);
-            if (!$result || $result !== BasePollingJob::NEXT_STATE_CONTINUE) {
+            $shouldContinue = $this->orderQuery($order);
+            if (!$shouldContinue) {
                 $this->delete();
                 return;
             }
@@ -73,9 +73,7 @@ class PollingOrderStatusJob extends BasePollingJob
 
         Log::info('订单同步请求结束', [$order->trade_no, $result]);
 
-        if ($result['status'] == 'PENDING') {
-            return BasePollingJob::NEXT_STATE_CONTINUE;
-        }
+       return $result['status'] == 'PENDING';
     }
 
     private function checkOrderBeforePolling(Order $order): bool

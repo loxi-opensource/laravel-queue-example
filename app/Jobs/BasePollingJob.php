@@ -18,8 +18,6 @@ abstract class BasePollingJob implements ShouldQueue, ShouldBeUnique
 
     const TIMEOUT_SECOND = 60 * 3;
 
-    const NEXT_STATE_CONTINUE = 'continue';
-
     public function retryUntil()
     {
         return now()->addSeconds(self::TIMEOUT_SECOND);
@@ -41,7 +39,7 @@ abstract class BasePollingJob implements ShouldQueue, ShouldBeUnique
 
     public function afterMaxAttemptsExceeded()
     {
-        // todo
+        // 可由子类实现
     }
 
     public function failed(\Throwable $exception)
