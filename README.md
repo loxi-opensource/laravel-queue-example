@@ -30,7 +30,7 @@
     <img alt="logo" src="./doc/image/log-demo-graph.png" width="300">
 </p>
 <p>
-    <img alt="logo" src="./doc/image/log-demo.png" width="600">
+    <img alt="logo" src="./doc/image/log-demo.jpg" width="600">
 </p>
 
 #### 1. 项目初始化
