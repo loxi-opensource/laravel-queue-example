@@ -18,8 +18,6 @@ abstract class BasePollingJob implements ShouldQueue, ShouldBeUnique
 
     const TIMEOUT_SECOND = 60 * 3;
 
-    const NEXT_STATE_CONTINUE = 'continue';
-
     public function retryUntil()
     {
         return now()->addSeconds(self::TIMEOUT_SECOND);
