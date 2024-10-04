@@ -39,7 +39,7 @@ abstract class BasePollingJob implements ShouldQueue, ShouldBeUnique
 
     public function afterMaxAttemptsExceeded()
     {
-        // todo
+        // 可由子类实现
     }
 
     public function failed(\Throwable $exception)
