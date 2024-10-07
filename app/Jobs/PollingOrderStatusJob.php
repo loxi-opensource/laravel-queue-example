@@ -73,15 +73,14 @@ class PollingOrderStatusJob extends BasePollingJob
 
         Log::info('订单同步请求结束', [$order->trade_no, $result]);
 
-       return $result['status'] == 'PENDING';
+        return $result['status'] == 'PENDING';
     }
 
     private function checkOrderBeforePolling(Order $order): bool
     {
         Log::info($this->jobDesc . '前置检测开始', [$order->trade_no]);
-        $orderStatus = OrderStatus::from($order->status);
-        if (!in_array($orderStatus, [OrderStatus::DEFAULT, OrderStatus::PAYING])) {
-            Log::info($this->jobDesc . '前置检测-订单状态已完成-退出队列', [$order->trade_no, $orderStatus->name]);
+        if (!in_array($order->status, [OrderStatus::DEFAULT, OrderStatus::PAYING])) {
+            Log::info($this->jobDesc . '前置检测-订单状态已完成-退出队列', [$order->trade_no, $order->status->name]);
             return false;
         }
 
@@ -91,7 +90,7 @@ class PollingOrderStatusJob extends BasePollingJob
     public function afterMaxAttemptsExceeded()
     {
         try {
-            $this->order->status = OrderStatus::TIMEOUT->value;
+            $this->order->status = OrderStatus::TIMEOUT;
             $this->order->save();
             Log::info($this->jobDesc . '-更新订单状态为超时', [$this->order->trade_no]);
         } catch (\Throwable $e) {
